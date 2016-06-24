@@ -2,8 +2,22 @@ require 'open-uri'
 
 class Parse
   def init
-    url = 'https://github.com/bbatsov/ruby-style-guide/blob/master/README.md'
-    html = open(url)
+    url = Array.new
+    url.push('https://github.com/styleguide/ruby/documentation')
+    url.push('https://github.com/styleguide/ruby/exceptions')
+    url.push('https://github.com/styleguide/ruby/collections')
+    url.push('https://github.com/styleguide/ruby/coding-style')
+    url.push('https://github.com/styleguide/ruby/classes')
+    url.push('https://github.com/styleguide/ruby/hashes')
+    url.push('https://github.com/styleguide/ruby/keyword-arguments')
+    url.push('https://github.com/styleguide/ruby/naming')
+    url.push('https://github.com/styleguide/ruby/percent-literals')
+    url.push('https://github.com/styleguide/ruby/regular-expressions')
+    url.push('https://github.com/styleguide/ruby/requires')
+    url.push('https://github.com/styleguide/ruby/strings')
+    url.push('https://github.com/styleguide/ruby/syntax')
+    random = Random.new
+    html = open(url.slice(random.rand(0..url.length - 1)))
     @doc = html.read
     scan
   end
@@ -14,6 +28,8 @@ class Parse
     @tips.each do |tip|
       parse(tip) if tip.first.include?('<')
     end
+   # puts @trics
+    #puts @trics.length
     print
   end
 
@@ -49,3 +65,9 @@ end
 
 parse = Parse.new
 parse.init
+
+
+
+
+
+
