@@ -35,10 +35,19 @@ class Parse
   end
 
   def start(language)
-    @current_language = @language.slice(0..((@language.length)-2))
+    @current_language = @language.slice(0..((@language.length)-1))
+
     if @languages.include?(@current_language)
       random = Random.new
-      html = open(@url.key(@current_language))
+      array = Array.new
+      puts @language.length
+
+      hash = @url.select {|k,v| v == @current_language }
+
+      array =  hash.keys
+
+
+      html = open(array.slice(rand(0..((array.length) - 1).to_i)))
       @doc = html.read
       scan
     else
@@ -67,7 +76,7 @@ class Parse
     @tips.each do |tip|
       parse(tip) if tip.first.include?('<')
     end
-    jjnprint
+    print
   end
 
   def parse(tip)
@@ -91,10 +100,8 @@ class Parse
 
   def print
     random = Random.new
-    puts @current_language
     puts @trics.slice( random.rand(0..@trics.length - 1) )
   end
 end
-
 parse = Parse.new
-parse.select_language
+parse.select_language('Ruby')
