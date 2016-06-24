@@ -16,11 +16,11 @@ class Parse
     @tips.each do |tip|
       parse(tip) if tip.first.include?('<')
     end
-    check
+    puts @trics
   end
 
   def parse(tip)
-    index1 = tip.length.to_i - tip.reverse.index('>').to_i + 2
+    index1 = tip.length.to_i - tip.reverse.index('>').to_i
     index2 = tip.length.to_i - tip.reverse.index('<').to_i - 2
     index2 = 0 if index2 < 0
 
@@ -31,23 +31,10 @@ class Parse
       @tip = str
       parse(@tip)
     else
-      @trics << str.to_s
+      @trics << str.to_s if str.length > 7
     end
-  end
-  def check
-    @trics.each do |tric|
-      puts tric.to_s.length
-      puts tric.slice(2..tric.to_s.length)
-      @trics.delete(tric) if tric.to_s.length < 3
-    end
-    puts @trics.length
   end
 end
 
 parse = Parse.new
 parse.init
-
-
-
-
-#<li><p><a name="user-content-utf-8"></a>(.*)<sup>[<a href="#utf-8">link</a>]</sup></p></li>
