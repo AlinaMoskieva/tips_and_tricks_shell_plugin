@@ -15,7 +15,7 @@ class Parse
     @tips.each do |tip|
       parse(tip) if tip.first.include?('<')
     end
-    puts @trics
+    print
   end
 
   def parse(tip)
@@ -33,6 +33,11 @@ class Parse
       str.to_s.delete! '['
       @trics << str.to_s.slice(1..(str.length - 2)) if str.length > 2
     end
+  end
+
+  def print
+    random = Random.new
+    puts @trics.slice( random.rand(0..@trics.length - 1) )
   end
 end
 
