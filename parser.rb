@@ -40,13 +40,8 @@ class Parse
     if @languages.include?(@current_language)
       random = Random.new
       array = Array.new
-      puts @language.length
-
       hash = @url.select {|k,v| v == @current_language }
-
       array =  hash.keys
-
-
       html = open(array.slice(rand(0..((array.length) - 1).to_i)))
       @doc = html.read
       scan
