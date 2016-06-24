@@ -1,8 +1,8 @@
 require 'open-uri'
 
 class Parse
-  def select_language(language)
-    @language = language
+  def select_language(lang)
+    @language = lang
     init
     start(@language)
   end
