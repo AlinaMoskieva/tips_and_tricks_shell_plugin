@@ -2,25 +2,37 @@ require 'open-uri'
 
 class Parse
   def init
-    url = Array.new
-    #url.push('https://github.com/styleguide/ruby/documentation')
-    #url.push('https://github.com/styleguide/ruby/exceptions')
-    #url.push('https://github.com/styleguide/ruby/collections')
-    #url.push('https://github.com/styleguide/ruby/coding-style')
-    #url.push('https://github.com/styleguide/ruby/classes')
-    #url.push('https://github.com/styleguide/ruby/hashes')
-    #url.push('https://github.com/styleguide/ruby/keyword-arguments')
-    url.push('https://github.com/styleguide/ruby/naming')
-    url.push('https://github.com/styleguide/ruby/percent-literals')
-    url.push('https://github.com/styleguide/ruby/regular-expressions')
-    url.push('https://github.com/styleguide/ruby/requires')
-    url.push('https://github.com/styleguide/ruby/strings')
-    url.push('https://github.com/styleguide/ruby/syntax')
+    url = Hash.new
+    languages = Array.new
+    languages.push('Ruby')
+    languages.push('Swift')
+    languages.push('JavaScript')
+    languages.push('Java')
+
+    url.store('https://github.com/styleguide/ruby/documentation', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/exceptions', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/collections', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/coding-style', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/classes', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/hashes', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/keyword-arguments', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/naming', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/percent-literals', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/regular-expressions', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/requires', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/strings', 'Ruby')
+    url.store('https://github.com/styleguide/ruby/syntax', 'Ruby')
+    url.store('https://github.com/raywenderlich/swift-style-guide','Swift')
+    url.store('https://github.com/airbnb/javascript', 'JavaScript')
+    url.store('https://github.com/twitter/commons/blob/master/src/java/com/twitter/common/styleguide.md', 'Java')
+
     random = Random.new
-    html = open(url.slice(random.rand(0..url.length - 1)))
+    num = random.rand(0..(languages.length).to_i)
+    html = open(url.key(languages.slice(num - 1)))
     @doc = html.read
     scan
   end
+
   def scan
     @tips = Array.new
     @trics = Array.new
@@ -29,9 +41,9 @@ class Parse
     @tips.each do |tip|
       parse(tip) if tip.first.include?('<')
     end
-    #puts @trics
-    #puts @trics.length
-    print
+    puts @trics
+    puts @trics.length
+    #print
   end
 
   def parse(tip)
