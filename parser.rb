@@ -1,8 +1,8 @@
 require 'open-uri'
 
 class Parse
-  def select_language
-    @language = gets
+  def select_language(language)
+    @language = language
     init
     start(@language)
   end
@@ -47,6 +47,7 @@ class Parse
   end
 
   def handler
+    puts "#{@language} is wrong."
     puts "Maybe you  are mean?"
     count = 0
     @languages.each do |lan|
@@ -66,7 +67,7 @@ class Parse
     @tips.each do |tip|
       parse(tip) if tip.first.include?('<')
     end
-    print
+    jjnprint
   end
 
   def parse(tip)
