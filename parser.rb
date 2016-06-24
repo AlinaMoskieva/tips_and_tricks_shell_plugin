@@ -3,7 +3,6 @@ require 'nokogiri'
 
 class Parse
   def init
-    puts "hello"
     url = 'https://github.com/bbatsov/ruby-style-guide/blob/master/README.md'
     html = open(url)
     @doc = html.read
@@ -27,11 +26,12 @@ class Parse
     str = tip.slice(0..index2).to_s
     str.concat(tip.slice(index1..tip.length).to_s)
     if str.include?('<')
-
       @tip = str
       parse(@tip)
     else
-      @trics << str.to_s if str.length > 7
+      str.to_s.delete! ']'
+      str.to_s.delete! '['
+      @trics << str.to_s.slice(1..(str.length - 2)) if str.length > 2
     end
   end
 end
