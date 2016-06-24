@@ -37,7 +37,14 @@ class Parse
 
   def print
     random = Random.new
+    puts "-------------------------------------------------------------"
+    puts "                        Tips and trics                       "
+    puts "-------------------------------------------------------------"
     puts @trics.slice( random.rand(0..@trics.length - 1) )
+    puts "-------------------------------------------------------------"
+    puts "                        Have a nice day!                     "
+    puts "-------------------------------------------------------------"
+    puts "             By Moskieva Alina & Shakirov Ruslan             "
   end
 end
 
