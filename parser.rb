@@ -3,7 +3,6 @@ require 'open-uri'
 class Parse
   def select_language
     @language = gets
-    puts @language
     init
     start(@language)
   end
@@ -11,7 +10,7 @@ class Parse
   def init
     @url = Hash.new
     @languages = Array.new
-    @languages.push("Ruby")
+    @languages.push('Ruby')
     @languages.push('Swift')
     @languages.push('JavaScript')
     @languages.push('Java')
@@ -38,12 +37,10 @@ class Parse
     puts (@language.slice(0..((@language.length)-2)))
     puts @languages.first.length
 
-    if @languages.include?(@language.slice(1..((@language.length)-2)))
+    if @languages.include?(@language.slice(0..((@language.length)-2)))
+      @current_language = @language.slice(0..((@language.length)-2))
       random = Random.new
-      num = random.rand(0..(@languages.length).to_i)
-      @current_language = @languages.slice(num - 1)
       html = open(@url.key(@current_language))
-      puts @url.key(@current_language)
       @doc = html.read
 
       scan
