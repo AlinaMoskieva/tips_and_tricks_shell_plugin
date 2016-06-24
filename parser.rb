@@ -1,49 +1,66 @@
 require 'open-uri'
 
 class Parse
+  def select_language
+    @language = gets
+    puts @language
+    init
+    start(@language)
+  end
+
   def init
-    url = Hash.new
-    languages = Array.new
-    languages.push('Ruby')
-    languages.push('Swift')
-    languages.push('JavaScript')
-    languages.push('Java')
+    @url = Hash.new
+    @languages = Array.new
+    @languages.push("Ruby")
+    @languages.push('Swift')
+    @languages.push('JavaScript')
+    @languages.push('Java')
 
-    url.store('https://github.com/styleguide/ruby/documentation', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/exceptions', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/collections', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/coding-style', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/classes', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/hashes', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/keyword-arguments', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/naming', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/percent-literals', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/regular-expressions', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/requires', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/strings', 'Ruby')
-    url.store('https://github.com/styleguide/ruby/syntax', 'Ruby')
-    url.store('https://github.com/raywenderlich/swift-style-guide','Swift')
-    url.store('https://github.com/airbnb/javascript', 'JavaScript')
-    url.store('https://github.com/twitter/commons/blob/master/src/java/com/twitter/common/styleguide.md', 'Java')
+    @url.store('https://github.com/styleguide/ruby/exceptions', 'Ruby')
+    @url.store('https://github.com/styleguide/ruby/collections', 'Ruby')
+    @url.store('https://github.com/styleguide/ruby/coding-style', 'Ruby')
+    @url.store('https://github.com/styleguide/ruby/classes', 'Ruby')
+    @url.store('https://github.com/styleguide/ruby/hashes', 'Ruby')
+    @url.store('https://github.com/styleguide/ruby/keyword-arguments', 'Ruby')
+    @url.store('https://github.com/styleguide/ruby/naming', 'Ruby')
+    @url.store('https://github.com/styleguide/ruby/percent-literals', 'Ruby')
+    @url.store('https://github.com/styleguide/ruby/regular-expressions', 'Ruby')
+    @url.store('https://github.com/styleguide/ruby/requires', 'Ruby')
+    @url.store('https://github.com/styleguide/ruby/strings', 'Ruby')
+    @url.store('https://github.com/styleguide/ruby/syntax', 'Ruby')
+    @url.store('https://github.com/raywenderlich/swift-style-guide','Swift')
+    @url.store('https://github.com/airbnb/javascript', 'JavaScript')
+    @url.store('https://github.com/twitter/commons/blob/master/src/java/com/twitter/common/styleguide.md', 'Java')
+  end
 
-    random = Random.new
-    num = random.rand(0..(languages.length).to_i)
-    html = open(url.key(languages.slice(num - 1)))
-    @doc = html.read
-    scan
+  def start(language)
+    puts (@language.slice(1..((@language.length)-1))).length
+    puts (@language.slice(0..((@language.length)-2)))
+    puts @languages.first.length
+
+    if @languages.include?(@language.slice(1..((@language.length)-2)))
+      random = Random.new
+      num = random.rand(0..(@languages.length).to_i)
+      @current_language = @languages.slice(num - 1)
+      html = open(@url.key(@current_language))
+      puts @url.key(@current_language)
+      @doc = html.read
+
+      scan
+    else
+      puts "Maybe you  are mean? #{@languages}"
+    end
   end
 
   def scan
     @tips = Array.new
     @trics = Array.new
     @tips = @doc.scan(%r{<p>(.*)})
-   # puts @tips
+
     @tips.each do |tip|
       parse(tip) if tip.first.include?('<')
     end
-    puts @trics
-    puts @trics.length
-    #print
+    print
   end
 
   def parse(tip)
@@ -67,15 +84,10 @@ class Parse
 
   def print
     random = Random.new
+    puts @current_language
     puts @trics.slice( random.rand(0..@trics.length - 1) )
   end
 end
 
 parse = Parse.new
-parse.init
-
-
-
-
-
-
+parse.select_language
