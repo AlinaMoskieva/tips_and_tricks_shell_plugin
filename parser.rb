@@ -33,20 +33,28 @@ class Parse
   end
 
   def start(language)
-    puts (@language.slice(1..((@language.length)-1))).length
-    puts (@language.slice(0..((@language.length)-2)))
-    puts @languages.first.length
-
-    if @languages.include?(@language.slice(0..((@language.length)-2)))
-      @current_language = @language.slice(0..((@language.length)-2))
+    @current_language = @language.slice(0..((@language.length)-2))
+    if @languages.include?(@current_language)
       random = Random.new
       html = open(@url.key(@current_language))
       @doc = html.read
 
       scan
     else
-      puts "Maybe you  are mean? #{@languages}"
+      handler
     end
+  end
+
+  def handler
+    puts "Maybe you  are mean?"
+    count = 0
+    @languages.each do |lan|
+      if lan.index(@current_language.slice(0)) == 0
+        puts lan
+        count += 1
+      end
+    end
+   puts @languages if count == 0
   end
 
   def scan
