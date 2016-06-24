@@ -14,6 +14,7 @@ class Parse
     @languages.push('Swift')
     @languages.push('JavaScript')
     @languages.push('Java')
+    @languages.push('Git')
 
     @url.store('https://github.com/styleguide/ruby/exceptions', 'Ruby')
     @url.store('https://github.com/styleguide/ruby/collections', 'Ruby')
@@ -30,6 +31,7 @@ class Parse
     @url.store('https://github.com/raywenderlich/swift-style-guide','Swift')
     @url.store('https://github.com/airbnb/javascript', 'JavaScript')
     @url.store('https://github.com/twitter/commons/blob/master/src/java/com/twitter/common/styleguide.md', 'Java')
+    @url.store('https://github.com/agis-/git-style-guide', 'Git')
   end
 
   def start(language)
@@ -38,7 +40,6 @@ class Parse
       random = Random.new
       html = open(@url.key(@current_language))
       @doc = html.read
-
       scan
     else
       handler
