@@ -42,7 +42,11 @@ class Parse
       array = Array.new
       hash = @url.select {|k,v| v == @current_language }
       array =  hash.keys
-      html = open(array.slice(rand(0..((array.length) - 1).to_i)))
+      if array.length > 1
+        html = open(array.slice(rand(0..((array.length) - 1).to_i)))
+      else
+        html = open(array.slice(0))
+      end
       @doc = html.read
       scan
     else
@@ -95,7 +99,11 @@ class Parse
 
   def print
     random = Random.new
-    puts @trics.slice( random.rand(0..@trics.length - 1) )
+    if @trics.length > 1
+      puts @trics.slice( random.rand(0..@trics.length - 1) )
+    else
+      puts  @trics.slice(0)
+    end
   end
 end
 parse = Parse.new
