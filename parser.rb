@@ -10,10 +10,10 @@ class Parse
   def initialize(language="Ruby")
     @language = language
     @rules = []
-    start
+    read_source
   end
 
-  def start
+  def read_source
     if LANGUAGES.include?(language)
       source = SOURCES.values_at(language).sample
       puts source
