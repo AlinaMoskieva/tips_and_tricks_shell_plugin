@@ -2,8 +2,12 @@ require "nokogiri"
 require "open-uri"
 
 class Parse
-  LANGUAGES = %w(Ruby Swift JavaScript Java)
-  SOURCES = { "Ruby" => "https://github.com/github/rubocop-github/blob/master/STYLEGUIDE.md" }
+  LANGUAGES = %w(Ruby Swift JavaScript Java Git)
+  SOURCES = { "Ruby" => "https://github.com/github/rubocop-github/blob/master/STYLEGUIDE.md",
+              "Swift" => "https://github.com/raywenderlich/swift-style-guide",
+              "JavaScript" => "https://github.com/airbnb/javascript",
+              "Java" => "https://github.com/twitter/commons/blob/master/src/java/com/twitter/common/styleguide.md",
+              "Git" => "https://github.com/agis-/git-style-guide" }
 
   attr_reader :language, :rules
 
